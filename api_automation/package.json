@@ -1,0 +1,21 @@
+{
+  "name": "api_automation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run collections/api_collection.json -e collections/environment.json -r cli,html --reporter-html-export reports/newman_report.html",
+    "test-json": "newman run collections/api_collection.json -e collections/environment.json -r cli,json --reporter-json-export reports/newman_report.json",
+    "prepare-env": "node scripts/prepareEnv.js", 
+    "generate-report": "node scripts/convert.js", 
+    "test-with-report": "npm run test-json && npm run generate-report",
+    "run-all": "npm run test-with-report" 
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "devDependencies": {
+    "newman": "^6.2.1"
+  }
+}
