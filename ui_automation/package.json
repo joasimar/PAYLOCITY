@@ -1,0 +1,26 @@
+{
+  "name": "api_ui_automation_framework",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",                           
+    "test-headed": "npx playwright test --headed",           
+    "debug": "npx playwright test --debug",                  
+    "report": "npx playwright show-report",                  
+    "test-ui": "npx playwright test --ui"   
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "description": "",
+  "dependencies": {
+    "allure-playwright": "^3.0.9",
+    "dotenv": "^16.4.7",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "@types/node": "^22.10.10"
+  }
+}
