@@ -6,7 +6,7 @@ export default defineConfig({
   expect: {
     timeout: 5000,
   },
-  retries: 1,
+  retries: 0,
   reporter: [['html', { open: 'on-failure' }]],
   use: {
     headless: false,
@@ -14,5 +14,6 @@ export default defineConfig({
     ignoreHTTPSErrors: true,
     video: 'retain-on-failure',
     trace: 'on-first-retry',
+    workers: 1,
   },
 });

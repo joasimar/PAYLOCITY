@@ -174,6 +174,52 @@ To view the pipeline configuration, see `.github/workflows/`.
 
 ---
 
+
+Environment Configuration
+The .env file is used to store environment-specific variables such as API URLs, credentials, and other sensitive information that are used throughout the automation framework.
+
+1. Location of the .env File
+The .env file is located in the ui_automation project directory, specifically in the root directory where it will be used by both the Playwright and API tests.
+
+2. Example .env File Structure
+env
+Copiar
+# API URL and credentials
+LOGIN_URL=https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/Account/Login
+ACCOUNT=TestUser717
+PASSWORD=lR8xn->myPP=
+3. Environment Variables
+LOGIN_URL: The URL used to authenticate with the API service. This is the login endpoint where authentication takes place.
+
+ACCOUNT: The username for authentication. This variable stores the login account name used in the tests.
+
+PASSWORD: The password associated with the login account. It is used to authenticate and access the API securely.
+
+4. How to Use .env File
+Step 1: Create a .env file in the root directory of your project (if not already created).
+
+Step 2: Add the required environment variables in the .env file. The format should be KEY=VALUE.
+
+Step 3: In your tests and configuration files, access these variables using process.env. For example:
+
+javascript
+Copiar
+const loginUrl = process.env.LOGIN_URL;
+const account = process.env.ACCOUNT;
+const password = process.env.PASSWORD;
+5. Storing Sensitive Information
+Security Note: Do not commit the .env file to version control (e.g., Git). Make sure to add it to .gitignore to avoid exposing sensitive information.
+
+Example .gitignore entry:
+
+bash
+Copiar
+.env
+
+
+---
+
+
 ## **Best Practices**
 - Use dynamic data generation for unique test inputs.
 - Structure tests using Page Object Model (POM) for UI tests.

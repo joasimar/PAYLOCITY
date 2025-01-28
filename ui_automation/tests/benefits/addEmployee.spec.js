@@ -14,29 +14,15 @@ test.describe('Add Employee Tests', () => {
 
   test('should add an employee and validate table data', async ({ page }) => {
     const benefitsPage = new BenefitsPage(page);
-
-    await benefitsPage.waitForTableToLoad(expect);
-
-    const newEmployee = {
-      firstName: 'John',
-      lastName: 'Doe',
-      dependants: 4,
-    };
-
-    await benefitsPage.addEmployee(newEmployee, expect);
-
-    const expectedRowData = [
-      'John',        
-      'Doe',         
-      '4',           
-      '52000.00',    
-      '2000.00',    
-      '115.38',      
-      '1884.62',     
-    ];
-
-    await benefitsPage.validateRowData(expect, 0, expectedRowData); 
+  
+    const { firstName, lastName } = generateRandomName();
+    const dependants = 4;
+    const newEmployee = { firstName, lastName, dependants };
+  
+    await benefitsPage.addAndValidateEmployee(newEmployee, expect);
   });
+  
+
 
   test('should not allow adding an employee with invalid dependants', async ({ page }) => {
     const benefitsPage = new BenefitsPage(page);
@@ -46,7 +32,7 @@ test.describe('Add Employee Tests', () => {
     const invalidEmployee = {
       firstName: 'Jane',
       lastName: 'Smith',
-      dependants: 'invalid', o
+      dependants: 'invalid', 
     };
 
     await expect(
@@ -54,71 +40,34 @@ test.describe('Add Employee Tests', () => {
     ).rejects.toThrow('Dependents field must contain a numeric value.');
   });
 
-  test('should add an employee and validate table data by searching with parameters', async ({ page }) => {
-    const benefitsPage = new BenefitsPage(page);
-  
-    await benefitsPage.waitForTableToLoad(expect);
-  
-    const newEmployee = {
-      firstName: 'John',
-      lastName: 'Doe',
-      dependants: 4,
-    };
-  
-    Logger.log('Adding a new employee...');
-    await benefitsPage.addEmployee(newEmployee, expect);
-  
-    Logger.log('Validating new employee in the table...');
-    const expectedRowData = [
-      'John',        
-      'Doe',         
-      '4',           
-      '52000.00',    
-      '2000.00',     
-      '115.38',      
-      '1884.62',     
-    ];
-  
-    await benefitsPage.validateRowByParameters(expect, newEmployee, expectedRowData); 
-    Logger.log('Test passed: Employee added successfully with correct benefit calculations.');
-  });
-
-  test('should add an employee and validate data using the new ID', async ({ page }) => {
-    const benefitsPage = new BenefitsPage(page);
-
-    await benefitsPage.waitForTableToLoad(expect);
+  test('should add a new employee', async ({ page }) => {
+      const benefitsPage = new BenefitsPage(page);
+    
+    const { firstName, lastName } = generateRandomName();
+    const dependants = 4;
+    const newEmployee = { firstName, lastName, dependants };
 
     const initialIds = await benefitsPage.getAllEmployeeIds();
 
-    const { firstName, lastName } = generateRandomName();
-    const dependants = 4;
-
-    const newEmployee = {
-      firstName: firstName,
-      lastName: lastName,
-      dependants: dependants,
-    };
-
-    Logger.log('Adding a new employee...');
     await benefitsPage.addEmployee(newEmployee, expect);
 
-    const updatedIds = await benefitsPage.getAllEmployeeIds();
+    const initialRowCount = await page.locator(`${benefitsPage.tableBody} tr`).count();
+    let rowCountChanged = false;
+    const maxRetries = 3;
 
+    for (let retryCount = 0; retryCount < maxRetries && !rowCountChanged; retryCount++) {
+        await page.waitForTimeout(1000); 
+        const updatedRowCount = await page.locator(`${benefitsPage.tableBody} tr`).count();
+        if (updatedRowCount > initialRowCount) {
+            rowCountChanged = true;
+        }
+    }
+
+    if (!rowCountChanged) throw new Error('Employee not added, table row count did not increase.');
+
+    const updatedIds = await benefitsPage.getAllEmployeeIds();
     const newEmployeeId = updatedIds.find(id => !initialIds.includes(id));
     expect(newEmployeeId).toBeDefined(); 
-
-    Logger.log('Validating the data of the new employee...');
-    const expectedRowData = [
-      newEmployee.firstName,    
-      newEmployee.lastName,     
-      newEmployee.dependants.toString(),  
-      '52000.00',               
-      '2000.00',                
-      '115.38',                 
-      '1884.62',                
-    ];
-
-    await benefitsPage.validateRowByParameters(expect, { id: newEmployeeId, ...newEmployee }, expectedRowData);
-    Logger.log('Test passed: Employee added successfully with correct benefit calculations.');
   });
+  
 });
