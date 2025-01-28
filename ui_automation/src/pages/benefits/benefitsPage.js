@@ -91,7 +91,6 @@ async addEmployee(employee, expect) {
     const maxFieldRetries = 3;
 
     while (fieldRetries < maxFieldRetries) {
-        // Validate that the fields are visible and ready to be filled
         const firstNameField = this.page.locator('#firstName');
         const lastNameField = this.page.locator('#lastName');
         const dependantsField = this.page.locator('#dependants');
@@ -100,20 +99,18 @@ async addEmployee(employee, expect) {
 
         if (fieldsVisible) {
             console.log('Fields are visible, proceeding to fill the form.');
-            break; // Proceed if the fields are visible
+            break; 
         } else {
             console.log('Form fields are not visible, retrying...');
             fieldRetries++;
             if (fieldRetries >= maxFieldRetries) {
                 throw new Error('Form fields not visible after multiple retries.');
             }
-            await this.page.waitForTimeout(1000); // Wait before retrying
-            // Retry clicking the "Add Employee" button again if fields are not visible
+            await this.page.waitForTimeout(1000); 
             await addButton.click();
         }
     }
 
-    // Fill the form fields
     await this.page.fill('#firstName', employee.firstName);
     await this.page.fill('#lastName', employee.lastName);
     await this.page.fill('#dependants', employee.dependants.toString());;
@@ -156,7 +153,7 @@ async validateRowByParameters(expect, employee, expectedRowData) {
 
     for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
       const row = rows.nth(rowIndex);
-      const idCell = row.locator('td').first(); // Suponiendo que el ID está en la primera columna
+      const idCell = row.locator('td').first(); 
       const id = await idCell.textContent();
       ids.push(id.trim());
     }
@@ -177,10 +174,10 @@ async validateRowByParameters(expect, employee, expectedRowData) {
   }
   async validateRowData(employeeRow, expectedRowData, expect) {
     const rowData = await employeeRow.locator('td').allTextContents();
-    const cleanedRowData = rowData.map((cell) => cell.trim()); // Limpiar los datos
+    const cleanedRowData = rowData.map((cell) => cell.trim()); 
 
     for (let i = 0; i < expectedRowData.length; i++) {
-      await expect(cleanedRowData[i]).toBe(expectedRowData[i]); // Validamos los datos fila por fila
+      await expect(cleanedRowData[i]).toBe(expectedRowData[i]);
     }
   }
   async findEmployeeRowById(employeeId) {
@@ -272,14 +269,11 @@ async validateRowByParameters(expect, employee, expectedRowData) {
   }
   
   async verifyUpdatedEmployeeInTable(updatedEmployee) {
-    // Locate the row for the updated employee by first name
     const employeeRowUpdated = await this.page.locator(`#employeesTable tbody tr:has(td:has-text("${updatedEmployee.firstName}"))`);
     
-    // Get the first and last name from the table row
     const firstNameInTable = await employeeRowUpdated.locator('td:nth-child(3)').textContent(); 
     const lastNameInTable = await employeeRowUpdated.locator('td:nth-child(2)').textContent(); 
   
-    // Return the extracted data to be used for validation
     return { firstNameInTable, lastNameInTable };
   }
   async addEmployeeAndValidateRowData(employee, expect) {
@@ -331,10 +325,8 @@ async validateRowByParameters(expect, employee, expectedRowData) {
 
 
 async getEmployeeCurrentData(employeeIdToEdit) {
-  // Locate the employee row by employeeId
   const employeeRow = await this.page.locator(`#employeesTable tbody tr:has(td:has-text("${employeeIdToEdit}"))`);
   
-  // Get current first and last name values
   const currentFirstName = await employeeRow.locator('td:nth-child(3)').textContent();
   const currentLastName = await employeeRow.locator('td:nth-child(2)').textContent();
 

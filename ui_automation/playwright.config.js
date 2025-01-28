@@ -1,7 +1,7 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests', // Carpeta donde están los archivos de prueba
+  testDir: './tests', 
   timeout: 30 * 1000,
   expect: {
     timeout: 5000,

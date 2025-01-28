@@ -1,4 +1,3 @@
-// apiPage.js
 import ApiClient from '../../utils/apiClient.js';
 
 class ApiPage {
@@ -6,7 +5,6 @@ class ApiPage {
     this.apiClient = new ApiClient(baseUrl, token);
   }
 
-  // Method to validate the employee data structure
   validateEmployeeData(employee) {
     expect(employee).toHaveProperty('id');
     expect(employee).toHaveProperty('firstName');

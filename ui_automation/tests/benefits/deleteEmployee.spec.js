@@ -22,12 +22,10 @@ test.describe('Delete Employee Tests', () => {
   test('should delete an employee and validate the deletion', async ({ page }) => {
     const benefitsPage = new BenefitsPage(page);
   
-    // Step 1: Get the initial list of employee IDs
     const initialIds = await benefitsPage.getAllEmployeeIds();
-    const employeeIdToDelete = initialIds[0];  // Select the first employee for deletion
+    const employeeIdToDelete = initialIds[0];  
     Logger.log(`Selecting employee with ID: ${employeeIdToDelete}`);
     
-    // Step 2: Delete the employee by ID
     await benefitsPage.deleteEmployeeById(employeeIdToDelete);
     Logger.log(`Employee with ID ${employeeIdToDelete} deleted.`);
   
@@ -36,7 +34,6 @@ test.describe('Delete Employee Tests', () => {
     const updatedIds = await benefitsPage.getAllEmployeeIds();
     Logger.log('Updated Employee IDs:', updatedIds);
   
-    // Step 4: Validate that the deleted employee's ID is not in the updated list
     expect(updatedIds).not.toContain(employeeIdToDelete); 
     Logger.log('Test passed: Employee deleted successfully.');
   });

@@ -18,7 +18,6 @@ test.describe('Employees API Tests', () => {
     apiClient = new ApiClient(API_BASE_URL, TOKEN);
   });
 
-  // Helper function to validate employee data
   const validateEmployeeData = (employee) => {
     expect(employee).toHaveProperty('id');
     expect(employee).toHaveProperty('firstName');
@@ -38,7 +37,6 @@ test.describe('Employees API Tests', () => {
     expect(typeof employee.net).toBe('number');
   };
 
-  // Fetch Employees and Validate Response
   test('should fetch employees and validate response structure and status code', async () => {
     const { status, data: employees } = await apiClient.getEmployees(USERNAME, PASSWORD);
     expect(status).toBe(200);
@@ -51,7 +49,6 @@ test.describe('Employees API Tests', () => {
     console.log('Test passed: API response structure is valid.');
   });
 
-  // Validate Specific Employee Data
   test('should validate specific employee data dynamically', async () => {
     const { status, data: employees } = await apiClient.getEmployees(USERNAME, PASSWORD);
     const employee = employees[0];
@@ -74,7 +71,6 @@ test.describe('Employees API Tests', () => {
     console.log('Test passed: Specific employee data is valid.');
   });
 
-  // Add Employee and Validate
   test('should add an employee and validate response structure and status code', async () => {
     const { firstName, lastName } = generateRandomName();
     const newEmployee = { firstName, lastName, dependants: 4 };
@@ -90,7 +86,6 @@ test.describe('Employees API Tests', () => {
     console.log('Test passed: Employee added and validated.');
   });
 
-  // Update Employee and Validate
   test('should update an employee and validate the updated data', async () => {
     const { status, data: employees } = await apiClient.getEmployees(USERNAME, PASSWORD);
     expect(status).toBe(200);
@@ -110,7 +105,6 @@ test.describe('Employees API Tests', () => {
     console.log('Test passed: Employee updated and validated.');
   });
 
-  // Fetch Employee by ID and Validate
   test('should fetch employees, extract an ID, and validate response structure and status code', async () => {
     const { status, data: employees } = await apiClient.getEmployees(USERNAME, PASSWORD);
     expect(status).toBe(200);
@@ -129,7 +123,6 @@ test.describe('Employees API Tests', () => {
     console.log('Test passed: Specific employee data is valid.');
   });
 
-  // Delete Employee and Verify Deletion
   test('should fetch employees, extract an ID, delete the employee, and verify deletion using getEmployees', async () => {
     const { status, data: employees } = await apiClient.getEmployees(USERNAME, PASSWORD);
     expect(status).toBe(200);

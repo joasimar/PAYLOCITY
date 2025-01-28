@@ -14,7 +14,7 @@ test.describe('Login Tests', () => {
 
   test('should login successfully with valid credentials', async () => {
     Logger.log('Testing valid login...');
-    console.log('Username:', env.login.account);  // Verifica si el nombre de usuario está siendo leído correctamente
+    console.log('Username:', env.login.account);  
 
     await loginPage.login(env.login.account, env.login.password);
     await loginPage.verifyLoginSuccess(expect); 
