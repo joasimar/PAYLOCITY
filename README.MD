@@ -202,8 +202,11 @@ Step 2: Add the required environment variables in the .env file. The format shou
 
 Step 3: In your tests and configuration files, access these variables using process.env. For example:
 
-javascript
-Copiar
+   ```bash
+    const loginUrl = process.env.LOGIN_URL;
+    const account = process.env.ACCOUNT;
+    const password = process.env.PASSWORD;
+   ```
 const loginUrl = process.env.LOGIN_URL;
 const account = process.env.ACCOUNT;
 const password = process.env.PASSWORD;
@@ -212,9 +215,10 @@ Security Note: Do not commit the .env file to version control (e.g., Git). Make 
 
 Example .gitignore entry:
 
-bash
-Copiar
-.env
+   ```bash
+   .env
+   ```
+
 
 
 ---
