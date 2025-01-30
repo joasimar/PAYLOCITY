@@ -164,8 +164,7 @@ To view the pipeline configuration, see `.github/workflows/`.
 ### **2. Adding New UI Tests**
 1. Add a new file in `ui_automation/tests/`.
 2. Write your test using Playwright syntax or leverage the Page Object Model (POM) classes in `pages/`.
- 
-   ```
+
 3. Run the tests with:
    ```bash
    npm run test
