@@ -196,6 +196,7 @@ ACCOUNT: The username for authentication. This variable stores the login account
 PASSWORD: The password associated with the login account. It is used to authenticate and access the API securely.
 
 4. How to Use .env File
+
 Step 1: Create a .env file in the root directory of your project (if not already created).
 
 Step 2: Add the required environment variables in the .env file. The format should be KEY=VALUE.
