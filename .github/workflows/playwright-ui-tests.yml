@@ -23,10 +23,15 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd api_automation
+          npm install
+
 
       - name: Run Playwright Tests
-        run: npm run test
+        run: |
+          cd ui_automation
+          npm run test
 
       - name: Upload Playwright HTML Report
         if: always()  # ensure condition is true/false (not "Yes" or "No")
