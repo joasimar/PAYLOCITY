@@ -1,3 +1,4 @@
+---
 name: API Automation Pipeline
 
 on:
@@ -13,24 +14,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-    - name: Install Dependencies
-      run: npm install
-      working-directory: api_automation
+      - name: Install Dependencies
+        run: npm install
+        working-directory: api_automation
 
-    - name: Run API Tests
-      run: npm run test-with-report
-      working-directory: api_automation
+      - name: Run API Tests
+        run: npm run test-with-report
+        working-directory: api_automation
 
-    - name: Upload Test Report
-      uses: actions/upload-artifact@v4  
-      with:
-        name: API-Test-Report
-        path: api_automation/reports/newman_report.html
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: API-Test-Report
+          path: api_automation/reports/newman_report.html

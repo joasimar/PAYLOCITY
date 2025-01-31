@@ -1,3 +1,4 @@
+---
 name: Playwright UI Tests
 
 on:
@@ -13,23 +14,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run Playwright Tests
-      run: npm run test
+      - name: Run Playwright Tests
+        run: npm run test
 
-    - name: Upload Playwright HTML Report
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: playwright-report
-        path: ui_automation/playwright-report/
+      - name: Upload Playwright HTML Report
+        if: always()  # ensure condition is true/false (not "Yes" or "No")
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: ui_automation/playwright-report/
