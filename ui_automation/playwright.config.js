@@ -9,7 +9,7 @@ export default defineConfig({
   retries: 0,
   reporter: [['html', { open: 'on-failure' }]],
   use: {
-    headless: false,
+    headless: true,
     viewport: { width: 1920, height: 1080 },
     ignoreHTTPSErrors: true,
     video: 'retain-on-failure',
