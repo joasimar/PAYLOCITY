@@ -29,12 +29,16 @@ jobs:
 
 
       - name: Run Playwright Tests
+        env:
+          LOGIN_URL: ${{ secrets.LOGIN_URL }}
+          ACCOUNT: ${{ secrets.ACCOUNT }}
+          PASSWORD: ${{ secrets.PASSWORD }}
         run: |
           cd ui_automation
           npm run test
 
       - name: Upload Playwright HTML Report
-        if: always()  # ensure condition is true/false (not "Yes" or "No")
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
