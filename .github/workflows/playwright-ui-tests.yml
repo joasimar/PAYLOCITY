@@ -26,6 +26,7 @@ jobs:
         run: |
           cd ui_automation
           npm install
+
       - name: Print flag if environment variables are set
         run: |
           if [ -z "$LOGIN_URL" ] || [ -z "$ACCOUNT" ]; then
@@ -34,6 +35,11 @@ jobs:
           else
             echo "Environment variables are set correctly."
               fi
+
+      - name: Install Playwright Browsers
+        run: |
+          cd ui_automation
+          npx playwright install  # This installs the necessary browser
 
       - name: Run Playwright Tests
         run: |
