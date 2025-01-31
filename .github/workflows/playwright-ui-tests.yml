@@ -27,12 +27,7 @@ jobs:
           cd ui_automation
           npm install
 
-
       - name: Run Playwright Tests
-        env:
-          LOGIN_URL: ${{ secrets.LOGIN_URL }}
-          ACCOUNT: ${{ secrets.ACCOUNT }}
-          PASSWORD: ${{ secrets.PASSWORD }}
         run: |
           cd ui_automation
           npm run test
@@ -43,3 +38,8 @@ jobs:
         with:
           name: playwright-report
           path: ui_automation/playwright-report/
+
+    env:
+      LOGIN_URL: ${{ secrets.LOGIN_URL }}
+      ACCOUNT: ${{ secrets.ACCOUNT }}
+      PASSWORD: ${{ secrets.PASSWORD }}
