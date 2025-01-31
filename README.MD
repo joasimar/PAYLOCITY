@@ -165,8 +165,6 @@ To view the pipeline configuration, see `.github/workflows/`.
 1. Add a new file in `ui_automation/tests/`.
 2. Write your test using Playwright syntax or leverage the Page Object Model (POM) classes in `pages/`.
 
- 
-   ```
 3. Run the tests with:
    ```bash
    npm run test
@@ -196,14 +194,23 @@ ACCOUNT: The username for authentication. This variable stores the login account
 PASSWORD: The password associated with the login account. It is used to authenticate and access the API securely.
 
 4. How to Use .env File
+
 Step 1: Create a .env file in the root directory of your project (if not already created).
 
 Step 2: Add the required environment variables in the .env file. The format should be KEY=VALUE.
 
 Step 3: In your tests and configuration files, access these variables using process.env. For example:
 
-javascript
-Copiar
+   ```bash
+    const loginUrl = process.env.LOGIN_URL;
+    const account = process.env.ACCOUNT;
+    const password = process.env.PASSWORD;
+
+
+    const loginUrl = process.env.LOGIN_URL;
+    const account = process.env.ACCOUNT;
+    const password = process.env.PASSWORD;
+   ```
 const loginUrl = process.env.LOGIN_URL;
 const account = process.env.ACCOUNT;
 const password = process.env.PASSWORD;
@@ -212,9 +219,10 @@ Security Note: Do not commit the .env file to version control (e.g., Git). Make 
 
 Example .gitignore entry:
 
-bash
-Copiar
-.env
+   ```bash
+   .env
+   ```
+
 
 
 ---
