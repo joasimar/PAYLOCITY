@@ -26,6 +26,14 @@ jobs:
         run: |
           cd ui_automation
           npm install
+      - name: Print flag if environment variables are set
+        run: |
+          if [ -z "$LOGIN_URL" ] || [ -z "$ACCOUNT" ]; then
+            echo "Environment variables are not set correctly!"
+            exit 1  # Fail the job if variables are not set
+          else
+            echo "Environment variables are set correctly."
+              fi
 
       - name: Run Playwright Tests
         run: |
