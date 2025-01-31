@@ -9,8 +9,6 @@ Thumbs.db
 
 ui_automation/playwright-report/
 
-api_automation/collections/environment*.json
-
 api_automation/reports/
 
 .vscode/
